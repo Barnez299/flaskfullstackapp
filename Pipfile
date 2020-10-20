@@ -12,6 +12,7 @@ flask-sqlalchemy = "*"
 psycopg2 = "*"
 flask-blueprint = "*"
 flask-script = "*"
+flask-login = "*"
 
 [requires]
 python_version = "3.8"
