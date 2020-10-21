@@ -49,7 +49,7 @@ def new_workout_post():
     db.session.add(workout)
     db.session.commit()
     flash('Your workout has been added!')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.user_workouts'))
 
 
 # create route for updating workout when logged in
