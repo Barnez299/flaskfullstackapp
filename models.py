@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref
 from flask_login import UserMixin
 from datetime import datetime
 from . import db
@@ -6,17 +7,14 @@ from . import db
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)  # primary keys are required by SQLAlchemy
-    name = db.Column(db.String(100))
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
+    name = db.Column(db.String(1000))
+    workouts = db.relationship('Workout', backref='author', lazy=True)
 
-    def __init__(self, name, email, password):
-        self.name = name
-        self.email = email
-        self.password = password
 
     def __repr__(self):
-        return f'{self.name} : {self.email}'
+        return '<User {}>'.format(self.name)
 
 
 class Workout(db.Model):
@@ -26,14 +24,10 @@ class Workout(db.Model):
     comment = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __init__(self, pushups, date_posted, comment, user_id):
-        self.pushups = pushups
-        self.date_posted = date_posted
-        self.comment = comment
-        self.user_id = user_id
+
 
     def __repr__(self):
-        return f'{self.user_id}'
+        return '<Workout {}>'.format(self.pushups)
 
 
 
